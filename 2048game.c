@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "2048game.h"
+#include "framebuffer.h"
 
 /*
  * 函数名：initGame
@@ -21,6 +22,8 @@
 void initGame(int data[NR][NR])
 {
     int x, y;
+
+    init_fb();
 
     /* 配置终端显示设置 */
 	printf("\033[2J");			 // 清屏
@@ -73,27 +76,49 @@ void showGame(int data[NR][NR])
 				switch (data[y][x])	// 根据不同数字打印不同颜色
 				{
 				case 2   : fprintf(stdout, "\033[32m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]); 
+                            Display_Pic(GAME_NUM_2, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 4   : fprintf(stdout, "\033[32m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_4, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 8   : fprintf(stdout, "\033[32m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_8, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 16  : fprintf(stdout, "\033[35m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_16, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 32  : fprintf(stdout, "\033[35m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_32, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 64  : fprintf(stdout, "\033[33m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_64, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 128 : fprintf(stdout, "\033[33m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_128, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 256 : fprintf(stdout, "\033[34m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_256, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 512 : fprintf(stdout, "\033[34m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_512, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 1024: fprintf(stdout, "\033[34m%5d\033[0m", \
-				    		       data[y][x]); break;
+				    		       data[y][x]);
+                            Display_Pic(GAME_NUM_1024, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				case 2048: fprintf(stdout, "\033[36m%5d\033[0m", \
-							       data[y][x]); break;
+							       data[y][x]);
+                            Display_Pic(GAME_NUM_2048, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
+                            break;
 				}
 	    	}
 		}
@@ -545,6 +570,7 @@ int maxScore(int data[NR][NR])
 */
 void exitGame(void)
 {
+    close_fb();
     system("stty icanon");          // 恢复缓冲
     system("stty echo");            // 恢复回显
     fprintf(stdout, "\033[?25h");   // 显示鼠标
