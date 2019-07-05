@@ -18,6 +18,7 @@
 #define TS_DEV_PATH     "/dev/input/event0"
 #define MMAP_LENGTH     800*480*4
 
+#define GAME_NUM_0      "./imgs/nums/p_0.bmp"
 #define GAME_NUM_2      "./imgs/nums/p_2.bmp"
 #define GAME_NUM_4      "./imgs/nums/p_4.bmp"
 #define GAME_NUM_8      "./imgs/nums/p_8.bmp"

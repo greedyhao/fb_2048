@@ -69,6 +69,7 @@ void showGame(int data[NR][NR])
 		{
 	    	if (data[y][x] == 0)
 	    	{
+                Display_Pic(GAME_NUM_0, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
 	        	fprintf(stdout, "%5d", data[y][x]);
 	    	}
 	    	else
