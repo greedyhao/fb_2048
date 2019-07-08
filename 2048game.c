@@ -12,6 +12,15 @@
 #include "2048game.h"
 #include "framebuffer.h"
 
+#define USE_STDOUT
+#ifdef	USE_STDOUT
+#define _FPRINTF	fprintf
+#else
+#define _FPRINTF
+#endif
+
+extern intel_pjt_t intel_pjt;
+
 /*
  * 函数名：initGame
  * 功能：初始化2048游戏，该函数会对游戏界面数据进行初始化
@@ -29,7 +38,7 @@ void initGame(int data[NR][NR])
 	printf("\033[2J");			 // 清屏
     system("stty -icanon");      // 关闭缓冲
     system("stty -echo");        // 关闭回显
-    fprintf(stdout,"\033[?25l"); // 隐藏光标
+    _FPRINTF(stdout,"\033[?25l"); // 隐藏光标
 	fflush(stdout);				 // 刷新
 
     /* 初始化游戏数据 */
@@ -58,9 +67,9 @@ void showGame(int data[NR][NR])
     int x, y;
 
 	/* 打印游戏提示信息 */
-	fprintf(stdout, "\033[1;1H");	// 定位到第一行第一列
-    fprintf(stdout, "欢迎来到\033[32m2048\033[0m游戏！");
-    fprintf(stdout, "(\033[33m按'q'退出游戏)\033[0m\n");
+	_FPRINTF(stdout, "\033[1;1H");	// 定位到第一行第一列
+    _FPRINTF(stdout, "欢迎来到\033[32m2048\033[0m游戏！");
+    _FPRINTF(stdout, "(\033[33m按'q'退出游戏)\033[0m\n");
 
 	/* 打印所有数据 */
     for (y = 0; y < NR; y++)
@@ -70,53 +79,53 @@ void showGame(int data[NR][NR])
 	    	if (data[y][x] == 0)
 	    	{
                 Display_Pic(GAME_NUM_0, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
-	        	fprintf(stdout, "%5d", data[y][x]);
+	        	_FPRINTF(stdout, "%5d", data[y][x]);
 	    	}
 	    	else
 	    	{
 				switch (data[y][x])	// 根据不同数字打印不同颜色
 				{
-				case 2   : fprintf(stdout, "\033[32m%5d\033[0m", \
+				case 2   : _FPRINTF(stdout, "\033[32m%5d\033[0m", \
 				    		       data[y][x]); 
                             Display_Pic(GAME_NUM_2, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 4   : fprintf(stdout, "\033[32m%5d\033[0m", \
+				case 4   : _FPRINTF(stdout, "\033[32m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_4, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 8   : fprintf(stdout, "\033[32m%5d\033[0m", \
+				case 8   : _FPRINTF(stdout, "\033[32m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_8, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 16  : fprintf(stdout, "\033[35m%5d\033[0m", \
+				case 16  : _FPRINTF(stdout, "\033[35m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_16, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 32  : fprintf(stdout, "\033[35m%5d\033[0m", \
+				case 32  : _FPRINTF(stdout, "\033[35m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_32, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 64  : fprintf(stdout, "\033[33m%5d\033[0m", \
+				case 64  : _FPRINTF(stdout, "\033[33m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_64, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 128 : fprintf(stdout, "\033[33m%5d\033[0m", \
+				case 128 : _FPRINTF(stdout, "\033[33m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_128, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 256 : fprintf(stdout, "\033[34m%5d\033[0m", \
+				case 256 : _FPRINTF(stdout, "\033[34m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_256, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 512 : fprintf(stdout, "\033[34m%5d\033[0m", \
+				case 512 : _FPRINTF(stdout, "\033[34m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_512, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 1024: fprintf(stdout, "\033[34m%5d\033[0m", \
+				case 1024: _FPRINTF(stdout, "\033[34m%5d\033[0m", \
 				    		       data[y][x]);
                             Display_Pic(GAME_NUM_1024, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
-				case 2048: fprintf(stdout, "\033[36m%5d\033[0m", \
+				case 2048: _FPRINTF(stdout, "\033[36m%5d\033[0m", \
 							       data[y][x]);
                             Display_Pic(GAME_NUM_2048, x*GAME_NUM_PIX, y*GAME_NUM_PIX);
                             break;
@@ -127,7 +136,7 @@ void showGame(int data[NR][NR])
     }
 
     /* 打印游戏结果 */
-	fprintf(stdout, "当前最高纪录：\033[1;35m%d\033[0m", maxScore(data));
+	_FPRINTF(stdout, "当前最高纪录：\033[1;35m%d\033[0m", maxScore(data));
     fflush(stdout);
 }
 
@@ -483,26 +492,60 @@ int checkGameOver(int data[NR][NR])
 */
 int getInput(void)
 {
-    char ch;
     int key;
+    Get_ts_info();
 
-    ch = fgetc(stdin);
-
-    if (ch == '\033' && fgetc(stdin) == '[')    // 方向键
+    // key = intel_pjt.ts_info.ts_status;
+    // if (intel_pjt.ts_info.flag_press == 0)
+    if(intel_pjt.event.touch.type == EV_KEY && intel_pjt.event.touch.code == BTN_TOUCH && intel_pjt.event.touch.value == 1) //手没离开
     {
-        ch = fgetc(stdin);
-    	switch (ch)
-    	{
-    	    case 'A': key = UP;     break;
-    	    case 'B': key = DOWN;   break;
-    	    case 'C': key = RIGHT;  break;
-    	    case 'D': key = LEFT;   break;
-    	}
+        if (intel_pjt.ts_info.ts_x > 500 && intel_pjt.ts_info.ts_x < 580 &&
+            intel_pjt.ts_info.ts_y > 300 && intel_pjt.ts_info.ts_y < 380)
+        {
+            key = LEFT;
+        }
+        else if (intel_pjt.ts_info.ts_x > 600 && intel_pjt.ts_info.ts_x < 680 &&
+                intel_pjt.ts_info.ts_y > 300 && intel_pjt.ts_info.ts_y < 380)
+        {
+            key = DOWN;
+        }
+        else if (intel_pjt.ts_info.ts_x > 600 && intel_pjt.ts_info.ts_x < 680 &&
+                intel_pjt.ts_info.ts_y > 200 && intel_pjt.ts_info.ts_y < 280)
+        {
+            key = UP;
+        }
+        else if (intel_pjt.ts_info.ts_x > 700 && intel_pjt.ts_info.ts_x < 780 &&
+                intel_pjt.ts_info.ts_y > 300 && intel_pjt.ts_info.ts_y < 380)
+        {
+            key = RIGHT;
+        }
+        else
+        {
+            key = UNKNOW;
+        }
+        
     }
-    else if (ch == 'q') // 退出键
-	   key = EXIT;
-    else                // 其它键
-	   key = UNKNOW;
+
+    // char ch;
+    // int key;
+
+    // ch = fgetc(stdin);
+
+    // if (ch == '\033' && fgetc(stdin) == '[')    // 方向键
+    // {
+    //     ch = fgetc(stdin);
+    // 	switch (ch)
+    // 	{
+    // 	    case 'A': key = UP;     break;
+    // 	    case 'B': key = DOWN;   break;
+    // 	    case 'C': key = RIGHT;  break;
+    // 	    case 'D': key = LEFT;   break;
+    // 	}
+    // }
+    // else if (ch == 'q') // 退出键
+	//    key = EXIT;
+    // else                // 其它键
+	//    key = UNKNOW;
 
     return key;
 }
@@ -574,7 +617,7 @@ void exitGame(void)
     close_fb();
     system("stty icanon");          // 恢复缓冲
     system("stty echo");            // 恢复回显
-    fprintf(stdout, "\033[?25h");   // 显示鼠标
+    _FPRINTF(stdout, "\033[?25h");   // 显示鼠标
     fputc('\n', stdout);            // 让终端提示符下一行显示
     exit(0);                        // 退出游戏
 }

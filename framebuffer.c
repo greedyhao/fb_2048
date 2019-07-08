@@ -1,6 +1,30 @@
 #include "framebuffer.h"
+#include "2048game.h"
 
 intel_pjt_t intel_pjt;
+
+int Get_ts_info()
+{
+	int x,y;
+
+	read(intel_pjt.ts,&intel_pjt.event.touch,sizeof(intel_pjt.event.touch)); //这个函数默认是堵塞的
+
+	if(intel_pjt.event.touch.type == EV_ABS && intel_pjt.event.touch.code == ABS_X) x=intel_pjt.event.touch.value;
+	if(intel_pjt.event.touch.type == EV_ABS && intel_pjt.event.touch.code == ABS_Y) y=intel_pjt.event.touch.value;
+
+	if(intel_pjt.event.touch.type == EV_KEY && intel_pjt.event.touch.code == BTN_TOUCH && intel_pjt.event.touch.value == 0)
+	{
+		intel_pjt.ts_info.flag_press = 0;
+	}
+	if(intel_pjt.event.touch.type == EV_KEY && intel_pjt.event.touch.code == BTN_TOUCH && intel_pjt.event.touch.value == 1) //手没离开
+	{
+		intel_pjt.ts_info.flag_press = 1;
+	}
+
+	intel_pjt.ts_info.ts_x = x*800/1024;
+	intel_pjt.ts_info.ts_y = y*480/600;
+    
+}
 
 int Display_Pic(char * pic_path, int dis_x, int dis_y)
 {
@@ -86,6 +110,10 @@ int init_fb()
 	}
 	
 	Display_Pic(UI_GAME_PIC_PATH,0,0);
+    Display_Pic(UI_PICT_L_PIC_PATH,600,300);
+    Display_Pic(UI_PICT_L_PIC_PATH,600,200);
+    Display_Pic(UI_PICT_L_PIC_PATH,700,300);
+    Display_Pic(UI_PICT_L_PIC_PATH,500,300);
 
 	return 0;
 }

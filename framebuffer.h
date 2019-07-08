@@ -34,12 +34,14 @@
 #define GAME_NUM_PIX    100
 
 #define UI_GAME_PIC_PATH   "./imgs/v1_0/game.bmp"
+#define UI_PICT_L_PIC_PATH  "./imgs/v1_0/left.bmp"
 
 typedef struct 
 {
     int ts_x;
     int ts_y;
     int flag_press;
+    int flag_game;
 }ts_info_t;
 
 typedef struct
@@ -59,5 +61,6 @@ typedef struct
 int init_fb();
 int close_fb();
 int Display_Pic(char * pic_path, int dis_x, int dis_y);
+int Get_ts_info();
 
 #endif
