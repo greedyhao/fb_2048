@@ -18,18 +18,18 @@
 #define TS_DEV_PATH     "/dev/input/event0"
 #define MMAP_LENGTH     800*480*4
 
-#define GAME_NUM_0      "./imgs/nums/p_0.bmp"
-#define GAME_NUM_2      "./imgs/nums/p_2.bmp"
-#define GAME_NUM_4      "./imgs/nums/p_4.bmp"
-#define GAME_NUM_8      "./imgs/nums/p_8.bmp"
-#define GAME_NUM_16     "./imgs/nums/p_16.bmp"
-#define GAME_NUM_32     "./imgs/nums/p_32.bmp"
-#define GAME_NUM_64     "./imgs/nums/p_64.bmp"
-#define GAME_NUM_128    "./imgs/nums/p_128.bmp"
-#define GAME_NUM_256    "./imgs/nums/p_256.bmp"
-#define GAME_NUM_512    "./imgs/nums/p_512.bmp"
-#define GAME_NUM_1024   "./imgs/nums/p_1024.bmp"
-#define GAME_NUM_2048   "./imgs/nums/p_2048.bmp"
+#define GAME_NUM_0      "./imgs/p_0.bmp"
+#define GAME_NUM_2      "./imgs/p_2.bmp"
+#define GAME_NUM_4      "./imgs/p_4.bmp"
+#define GAME_NUM_8      "./imgs/p_8.bmp"
+#define GAME_NUM_16     "./imgs/p_16.bmp"
+#define GAME_NUM_32     "./imgs/p_32.bmp"
+#define GAME_NUM_64     "./imgs/p_64.bmp"
+#define GAME_NUM_128    "./imgs/p_128.bmp"
+#define GAME_NUM_256    "./imgs/p_256.bmp"
+#define GAME_NUM_512    "./imgs/p_512.bmp"
+#define GAME_NUM_1024   "./imgs/p_1024.bmp"
+#define GAME_NUM_2048   "./imgs/p_2048.bmp"
 
 #define GAME_NUM_PIX    100
 
